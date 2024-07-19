@@ -4,9 +4,11 @@ import Profile from '@vectors/Profile';
 import {colors} from '@/styles';
 import Edit from '@vectors/Edit';
 import * as ImagePicker from 'react-native-image-picker';
+import useAuth from '../hooks/useAuth';
 
 export default function ProfileImage({size}: {size: number}) {
-  const [image, setImage] = useState<string | undefined>();
+  const {user, dispatch} = useAuth();
+  // const [image, setImage] = useState<string | undefined>();
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibrary({
@@ -15,7 +17,8 @@ export default function ProfileImage({size}: {size: number}) {
     });
 
     if (!result.didCancel && result.assets?.length) {
-      setImage(result.assets[0].uri);
+      // setImage(result.assets[0].uri);
+      dispatch?.({type: 'add_image', payload: result.assets[0].uri as string});
     }
   };
 
@@ -48,9 +51,9 @@ export default function ProfileImage({size}: {size: number}) {
         }}>
         <Edit color={colors.white} size={(size / 70) * 14} />
       </View>
-      {image ? (
+      {user?.image ? (
         <Image
-          source={{uri: image}}
+          source={{uri: user.image}}
           width={size}
           height={size}
           style={{width: size, height: size, borderRadius: size / 3}}

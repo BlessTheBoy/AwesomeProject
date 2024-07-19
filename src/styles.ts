@@ -5,6 +5,8 @@ export const colors = {
   primary: '#FD671E',
   primaryBackground: '#F5F9FF',
   buttonColor: '#FF8A51',
+
+  error: '#BA1A1A',
   text: {
     primary: '#0B0C1B',
   },

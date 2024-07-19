@@ -11,9 +11,12 @@ import ChevronRight from '@vectors/ChevronRight';
 import {useNavigation} from '@react-navigation/native';
 import {ProfileScreenNavigationProp} from '@root/types';
 import Animated from 'react-native-reanimated';
+import useAuth from '@/shared/hooks/useAuth';
 
 export default function SettingsScreen() {
   const navigation = useNavigation<ProfileScreenNavigationProp>();
+  const {user} = useAuth();
+
   return (
     <SafeAreaView
       style={{
@@ -36,14 +39,14 @@ export default function SettingsScreen() {
               textStyles.body_default_medium,
               {marginTop: 12, color: colors.black},
             ]}>
-            Becky Anderson
+            {user?.name}
           </Text>
           <Text
             style={[
               textStyles.body_small_medium,
               {color: colors.grey[400], marginTop: 2},
             ]}>
-            beckyanderson@gmail.com
+            {user?.email}
           </Text>
         </View>
         <View

@@ -14,6 +14,7 @@ export type Address = {
 export type User = {
   id: string;
   name: string;
+  image?: string;
   email: string;
   phone: string;
   address: {
@@ -53,12 +54,19 @@ type userActions =
   | {
       type: 'add_address';
       payload: Address;
+    }
+  | {
+      type: 'add_image';
+      payload: string;
     };
 
 function reducer(state: User, action: userActions) {
   switch (action.type) {
     case 'save_details': {
       return {...state, ...action.payload} as User;
+    }
+    case 'add_image': {
+      return {...state, image: action.payload} as User;
     }
     case 'change_default_address': {
       return {

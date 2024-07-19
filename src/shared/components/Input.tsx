@@ -6,6 +6,7 @@ import Animated, {useSharedValue} from 'react-native-reanimated';
 
 interface InputProps extends TextInputProps {
   label?: string;
+  error?: string;
 }
 
 export default function Input({
@@ -14,6 +15,7 @@ export default function Input({
   onFocus,
   onBlur,
   value,
+  error,
   ...props
 }: InputProps) {
   const inputRef = useRef<TextInput>(null);
@@ -26,7 +28,7 @@ export default function Input({
     <View
       style={{
         position: 'relative',
-        height: 56,
+        // height: 56,
       }}>
       <TextInput
         ref={inputRef}
@@ -39,7 +41,7 @@ export default function Input({
             borderRadius: 8,
             paddingHorizontal: 12,
             borderWidth: focused ? 1 : 0.5,
-            borderColor: '#0B0B0B',
+            borderColor: error ? colors.error : '#0B0B0B',
             color: colors.grey[900],
           },
           style,
@@ -64,6 +66,15 @@ export default function Input({
         {...props}
         placeholderTextColor={focused ? colors.grey[400] : colors.white}
       />
+      {error ? (
+        <Text
+          style={{
+            color: colors.error,
+            fontSize: 12,
+          }}>
+          {error}
+        </Text>
+      ) : null}
       {label && (
         <Animated.Text
           style={{
