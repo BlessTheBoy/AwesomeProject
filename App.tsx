@@ -5,9 +5,9 @@
  * @format
  */
 
+import Providers from '@/context';
 import Navigator from '@navigator/root';
 import {Platform, UIManager} from 'react-native';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 if (Platform.OS === 'android') {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
@@ -17,9 +17,9 @@ if (Platform.OS === 'android') {
 
 function App(): React.JSX.Element {
   return (
-    <SafeAreaProvider>
+    <Providers>
       <Navigator />
-    </SafeAreaProvider>
+    </Providers>
   );
 }
 

@@ -7,24 +7,26 @@ import {fontFamilies} from '@/shared/constants/fonts';
 import Star from '@vectors/Star';
 import CheckBox from '@vectors/CheckBox';
 import AddCircle from '@vectors/AddCircle';
+import {Address} from '@/context/Auth';
 
-type address = {
-  name: string;
-  address: string;
-  phone: string;
-  id: string;
-};
-
-const addresses: address[] = [
+const addresses: Address[] = [
   {
     name: 'Becky Anderson',
-    address: 'Plot 234, ikoyi, Lagos, Nigeria',
+    address: {
+      address: 'Plot 234',
+      lga: 'ikoyi',
+      state: 'Lagos, Nigeria.',
+    },
     phone: '+23456789021',
     id: '1',
   },
   {
     name: 'Faruq Anderson',
-    address: 'Plot 234, ikoyi, Lagos, Nigeria',
+    address: {
+      address: 'Plot 234',
+      lga: 'ikoyi',
+      state: 'Lagos, Nigeria.',
+    },
     phone: '+23456789021',
     id: '2',
   },
@@ -35,7 +37,7 @@ export default function AddressScreen() {
   const [orderedAddresses, setOrderedAddresses] = useState(() => {
     const defaultAddress = addresses.find(
       address => address.id === defaultID,
-    ) as address;
+    ) as Address;
     const filteredAddresses = addresses.filter(
       address => address.id !== defaultID,
     );
@@ -46,7 +48,7 @@ export default function AddressScreen() {
   useEffect(() => {
     const defaultAddress = addresses.find(
       address => address.id === defaultID,
-    ) as address;
+    ) as Address;
     const filteredAddresses = addresses.filter(
       address => address.id !== defaultID,
     );
@@ -106,12 +108,7 @@ const AddressCard = ({
   defaultId,
   setDefault,
 }: {
-  address: {
-    name: string;
-    address: string;
-    phone: string;
-    id: string;
-  };
+  address: Address;
   defaultId: string;
   setDefault: () => void;
 }) => {
@@ -163,7 +160,9 @@ const AddressCard = ({
           fontSize: 16,
           color: colors.grey[600],
         }}>
-        {address.address}
+        {`${address.address.address}${
+          address.address.lga ? ', ' + address.address.lga : ''
+        }${address.address.state ? ', ' + address.address.state : '.'}`}
       </Text>
       <Text
         style={{
