@@ -8,54 +8,36 @@ import Star from '@vectors/Star';
 import CheckBox from '@vectors/CheckBox';
 import AddCircle from '@vectors/AddCircle';
 import {Address} from '@/context/Auth';
-
-const addresses: Address[] = [
-  {
-    name: 'Becky Anderson',
-    address: {
-      address: 'Plot 234',
-      lga: 'ikoyi',
-      state: 'Lagos, Nigeria.',
-    },
-    phone: '+23456789021',
-    id: '1',
-  },
-  {
-    name: 'Faruq Anderson',
-    address: {
-      address: 'Plot 234',
-      lga: 'ikoyi',
-      state: 'Lagos, Nigeria.',
-    },
-    phone: '+23456789021',
-    id: '2',
-  },
-];
+import useAuth from '@/shared/hooks/useAuth';
+import {useNavigation} from '@react-navigation/native';
+import {AllAddressScreenNavigationProp} from '@root/types';
 
 export default function AddressScreen() {
-  const [defaultID, setDefaultID] = useState('1');
+  const navigation = useNavigation<AllAddressScreenNavigationProp>();
+  const {user, dispatch} = useAuth();
+  const defaultID = user?.address.defaultAddressID;
   const [orderedAddresses, setOrderedAddresses] = useState(() => {
-    const defaultAddress = addresses.find(
+    const defaultAddress = user?.address.list.find(
       address => address.id === defaultID,
     ) as Address;
-    const filteredAddresses = addresses.filter(
+    const filteredAddresses = user?.address.list.filter(
       address => address.id !== defaultID,
     );
-    const newOrderedAddresses = [defaultAddress, ...filteredAddresses];
+    const newOrderedAddresses = [defaultAddress, ...(filteredAddresses ?? [])];
     return newOrderedAddresses;
   });
 
   useEffect(() => {
-    const defaultAddress = addresses.find(
+    const defaultAddress = user?.address.list.find(
       address => address.id === defaultID,
     ) as Address;
-    const filteredAddresses = addresses.filter(
+    const filteredAddresses = user?.address.list.filter(
       address => address.id !== defaultID,
     );
-    const newOrderedAddresses = [defaultAddress, ...filteredAddresses];
+    const newOrderedAddresses = [defaultAddress, ...(filteredAddresses ?? [])];
     LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
     setOrderedAddresses(newOrderedAddresses);
-  }, [defaultID]);
+  }, [user?.address.list, defaultID]);
 
   return (
     <SafeAreaView
@@ -75,8 +57,10 @@ export default function AddressScreen() {
           <AddressCard
             address={address}
             key={address.id}
-            defaultId={defaultID}
-            setDefault={() => setDefaultID(address.id)}
+            defaultId={defaultID as string}
+            setDefault={() =>
+              dispatch?.({type: 'change_default_address', payload: address.id})
+            }
           />
         ))}
         <Pressable
@@ -87,7 +71,8 @@ export default function AddressScreen() {
             paddingVertical: 16,
             gap: 18,
             backgroundColor: pressed ? colors.pressed : colors.white,
-          })}>
+          })}
+          onPress={() => navigation.navigate('Address' as never)}>
           <AddCircle size={24} color={colors.buttonColor} />
           <Text
             style={{
@@ -112,6 +97,7 @@ const AddressCard = ({
   defaultId: string;
   setDefault: () => void;
 }) => {
+  const navigation = useNavigation<AllAddressScreenNavigationProp>();
   return (
     <View
       style={{
@@ -143,7 +129,8 @@ const AddressCard = ({
             justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: pressed ? colors.pressed : colors.white,
-          })}>
+          })}
+          onPress={() => navigation.navigate('Address', {id: address.id})}>
           <Text
             style={{
               color: colors.buttonColor,

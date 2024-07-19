@@ -6,7 +6,7 @@ import {fontFamilies} from '../constants/fonts';
 import ArrowLeft from '@vectors/ArrowLeft';
 import {colors} from '@/styles';
 
-export default function Header() {
+export default function Header({title}: {title?: string}) {
   const route = useRoute();
   const navigation = useNavigation();
 
@@ -56,7 +56,7 @@ export default function Header() {
           textAlign: 'center',
           color: colors.black,
         }}>
-        {route.name}
+        {title ?? route.name}
       </Text>
     </SafeAreaView>
   );

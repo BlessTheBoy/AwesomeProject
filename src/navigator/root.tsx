@@ -4,6 +4,7 @@ import {RootStackParams} from '@root/types';
 import BottomTabNavigator from './bottomTab';
 import AddressScreen from '@screens/AddressScreen';
 import {NavigationContainer} from '@react-navigation/native';
+import NewAddressScreen from '@screens/NewAddressScreen';
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 
@@ -16,6 +17,13 @@ export default function Navigator() {
         }}>
         <Stack.Screen name="BottomTab" component={BottomTabNavigator} />
         <Stack.Screen name="Manage Address" component={AddressScreen} />
+        <Stack.Screen
+          name="Address"
+          component={NewAddressScreen}
+          options={{
+            presentation: 'modal',
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

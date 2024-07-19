@@ -20,7 +20,7 @@ export default function Input({
 }: InputProps) {
   const inputRef = useRef<TextInput>(null);
   const fontSize = useSharedValue(value ? 13 : 16);
-  const top = useSharedValue(value ? '0%' : '50%');
+  const top = useSharedValue(value ? 0 : 28);
   const borderWidth = useSharedValue(0.5);
   const [focused, setFocused] = useState(false);
 
@@ -28,7 +28,7 @@ export default function Input({
     <View
       style={{
         position: 'relative',
-        // height: 56,
+        height: error ? 72 : 56,
       }}>
       <TextInput
         ref={inputRef}
@@ -48,7 +48,7 @@ export default function Input({
         ]}
         value={value}
         onFocus={e => {
-          top.value = '0%';
+          top.value = 0;
           fontSize.value = 13;
           borderWidth.value = 1;
           setFocused(true);
@@ -56,7 +56,7 @@ export default function Input({
         }}
         onBlur={e => {
           if (!value) {
-            top.value = '50%';
+            top.value = 28;
             fontSize.value = 16;
           }
           borderWidth.value = 0.5;
@@ -71,6 +71,8 @@ export default function Input({
           style={{
             color: colors.error,
             fontSize: 12,
+            lineHeight: 12,
+            marginTop: 4,
           }}>
           {error}
         </Text>

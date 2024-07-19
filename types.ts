@@ -6,6 +6,7 @@ import {
   CompositeNavigationProp,
   CompositeScreenProps,
   NavigatorScreenParams,
+  RouteProp,
 } from '@react-navigation/native';
 import {
   NativeStackNavigationProp,
@@ -26,7 +27,18 @@ export type BottomTabParamList = {
 export type RootStackParams = {
   BottomTab: NavigatorScreenParams<BottomTabParamList>;
   'Manage Address': undefined;
+  Address: {id: string} | undefined;
 };
+
+export type AddressScreenRouteProp = RouteProp<RootStackParams, 'Address'>;
+export type AddressScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParams,
+  'Address'
+>;
+export type AllAddressScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParams,
+  'Manage Address'
+>;
 
 export type ProfileScreenProps = CompositeScreenProps<
   NativeStackScreenProps<SettingsStackParams, 'Edit Profile'>,

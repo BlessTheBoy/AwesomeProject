@@ -63,7 +63,7 @@ export default function ProfileScreen() {
   const nameError = userData.name ? undefined : 'Name is required';
   const phoneError = !userData.phone
     ? 'Phone is required'
-    : !/^[0-9]+$/.test(userData.phone)
+    : /[a-zA-Z]/.test(userData.phone)
     ? 'Only numbers are allowed'
     : undefined;
   const emailError = !userData.email
