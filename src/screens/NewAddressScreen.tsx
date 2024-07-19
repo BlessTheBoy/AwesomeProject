@@ -1,7 +1,7 @@
 import {View, Text} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {AddressScreenRouteProp} from '@root/types';
+import {AddressScreenNavigationProp, AddressScreenRouteProp} from '@root/types';
 import useAuth from '@/shared/hooks/useAuth';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {colors} from '@/styles';
@@ -13,7 +13,7 @@ import Button from '@components/Button';
 
 export default function NewAddressScreen() {
   const route = useRoute<AddressScreenRouteProp>();
-  const navigation = useNavigation<AddressScreenRouteProp>();
+  const navigation = useNavigation<AddressScreenNavigationProp>();
   const addressID = route.params?.id;
   const {user, dispatch} = useAuth();
   const address = addressID
