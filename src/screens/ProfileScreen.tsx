@@ -1,6 +1,5 @@
 import {View, Text} from 'react-native';
 import React, {useState} from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '@components/Header';
 import ProfileImage from '@components/ProfileImage';
 import Input from '@components/Input';
@@ -83,7 +82,7 @@ export default function ProfileScreen() {
     !stateError;
 
   return (
-    <SafeAreaView
+    <View
       style={{
         flex: 1,
         backgroundColor: colors.white,
@@ -169,6 +168,6 @@ export default function ProfileScreen() {
           />
         </View>
       </KeyboardAwareScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

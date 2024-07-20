@@ -1,9 +1,8 @@
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {AddressScreenNavigationProp, AddressScreenRouteProp} from '@root/types';
 import useAuth from '@/shared/hooks/useAuth';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {colors} from '@/styles';
 import uuid from 'react-native-uuid';
 import Header from '@components/Header';
@@ -109,12 +108,12 @@ export default function NewAddressScreen() {
     difference && !nameError && !phoneError && !addressError && !stateError;
 
   return (
-    <SafeAreaView
+    <View
       style={{
         flex: 1,
         backgroundColor: colors.white,
       }}>
-      <Header title={addressID ? 'Edit Address' : 'New Address'} />
+      <Header title={addressID ? 'Edit Address' : 'New Address'} safe />
       <KeyboardAwareScrollView
         showsVerticalScrollIndicator={false}
         bounces={false}
@@ -181,6 +180,6 @@ export default function NewAddressScreen() {
           />
         </View>
       </KeyboardAwareScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

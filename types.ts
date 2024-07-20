@@ -14,14 +14,14 @@ import {
 } from '@react-navigation/native-stack';
 
 export type SettingsStackParams = {
-  Settings: undefined;
+  Profile: undefined;
   'Edit Profile': undefined;
 };
 
 export type BottomTabParamList = {
   Home: undefined;
   Orders: undefined;
-  'Settings Home': NavigatorScreenParams<SettingsStackParams>;
+  Settings: NavigatorScreenParams<SettingsStackParams>;
 };
 
 export type RootStackParams = {
@@ -43,7 +43,7 @@ export type AllAddressScreenNavigationProp = NativeStackNavigationProp<
 export type ProfileScreenProps = CompositeScreenProps<
   NativeStackScreenProps<SettingsStackParams, 'Edit Profile'>,
   CompositeScreenProps<
-    BottomTabScreenProps<BottomTabParamList, 'Settings Home'>,
+    BottomTabScreenProps<BottomTabParamList, 'Settings'>,
     NativeStackScreenProps<RootStackParams>
   >
 >;
@@ -51,7 +51,7 @@ export type ProfileScreenProps = CompositeScreenProps<
 export type ProfileScreenNavigationProp = CompositeNavigationProp<
   NativeStackNavigationProp<SettingsStackParams, 'Edit Profile'>,
   CompositeNavigationProp<
-    BottomTabNavigationProp<BottomTabParamList, 'Settings Home'>,
+    BottomTabNavigationProp<BottomTabParamList, 'Settings'>,
     NativeStackNavigationProp<RootStackParams>
   >
 >;
